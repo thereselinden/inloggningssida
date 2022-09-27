@@ -1,0 +1,12 @@
+Sidan skall innehålla en meny, en del för innehåll samt en footer.
+
+Menyn skall alltid visas och ändras dynamiskt för att visa rätt innehåll:
+
+- En valfri logotyp eller en h1'a.
+- Om besökaren ej är inloggad så skall ett inloggningsformulär visas.
+- Är besökaren inloggad så skall istället en logga-ut knapp visas.
+Innehålls -vyn skall dynamiskt växla mellan tre olika lägen:
+
+- Välkomstsida för ej inloggade.
+- Felmeddelande vid felaktig inlogging.
+- Välkomstsida för inloggad besökare.

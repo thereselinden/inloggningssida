@@ -3,3 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/**** HEADER ****/
+
+header {
+  height: 10vh;
+  background-color: #ccc;
+}
+
+/**** MAIN ****/
+main {
+  flex: 1 0 auto;
+}
+
+/**** FORM ****/
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/**** FOOTER ****/
+footer {
+  height: 5vh;
+  background-color: rgb(220, 189, 189);
+}

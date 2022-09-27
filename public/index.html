@@ -8,6 +8,43 @@
     <title>Inlämningsuppgift - Inloggningssida</title>
   </head>
   <body>
+    <header>
+      <div>
+        <img src="#" alt="Company logo" id="companyLogo" />
+        <h1 id="userFirstName">First name</h1>
+      </div>
+    </header>
+    <main>
+      <form>
+        <label for="username">Användarnamn</label>
+        <input type="text" id="userName" name="username" required />
+        <label for="password">Lösenord</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          minlength="2"
+          required
+        />
+        <button type="submit" id="signInBtn" value="submit" onclick="signIn()">
+          Logga in
+        </button>
+        <button
+          type="submit"
+          id="signOutBtn"
+          value="submit"
+          onclick="signOut()"
+        >
+          Logga ut
+        </button>
+      </form>
+    </main>
+    <footer>
+      <section>
+        <p>Therese Lindén &#169; 2022</p>
+        <p>Inlämningsuppgift - Medieinstitutet</p>
+      </section>
+    </footer>
     <script src="../code/app.js"></script>
   </body>
 </html>
