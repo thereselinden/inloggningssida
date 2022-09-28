@@ -20,15 +20,19 @@
 
     <main>
       <section class="login-page" id="loginPage">
-        <!-- varför kan jag inte ha 
-        onsubmit och kalla signIn() på form 
-        och typ submit på button?
-        För enklrare valideringskontroll?  -->
-        <form>
+        <!-- Method POST för att inte visa user + lösen i url -->
+        <form onsubmit="signIn()" method="POST">
           <h1>Logga in</h1>
           <label for="username"
             >Användarnamn
-            <input type="text" id="username" name="username" required />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              autocomplete="off"
+            />
+            <div class="error-msg-username" id="userError"></div>
           </label>
           <label for="password"
             >Lösenord
@@ -38,23 +42,14 @@
               name="password"
               minlength="2"
               required
-              autocomplete
             />
+            <div class="error-msg-password" id="passError"></div>
           </label>
-          <button
-            type="button"
-            id="signInBtn"
-            value="submit"
-            onclick="signIn()"
-          >
-            Logga in
-          </button>
+          <button type="submit" id="signInBtn" value="submit">Logga in</button>
         </form>
       </section>
 
-      <!-- Default display: hidden -->
       <section class="welcome-page" id="welcomePage">
-        <!-- <h1 id="userFirstName">Hej Förnamn</h1> -->
         <button
           class="sign-out-btn blue"
           type="button"
