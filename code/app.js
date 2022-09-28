@@ -1,7 +1,6 @@
 const signInBtn = document.getElementById('signInBtn');
-// const headerImage = document.getElementById('image');
-// console.log('headerImage', headerImage);
 
+//users saved in localStorage
 const users = [
   {
     username: 'Fredrik',
@@ -23,7 +22,16 @@ const getUsers = localStorage.getItem(users);
 // create JavaScript object
 const parseUsers = JSON.parse(getUsers);
 
-// Hide login-page and show welcome page
+parseUsers.find(user => {
+  console.log(user.username);
+  if (user.username === 'Therese') {
+    console.log('Användare finns!!!!');
+  } else {
+    console.log('Användaren finns INTE!!!!');
+  }
+});
+
+// Hide login page and show welcome page when sign in button clicked
 signInBtn.addEventListener('click', () => {
   const loginPage = document.getElementById('loginPage');
   loginPage.style.display = 'none';
@@ -33,15 +41,11 @@ signInBtn.addEventListener('click', () => {
 });
 
 const toggleHeaderImage = () => {
-  console.log('inside toggle function');
-  let displayImage = document.getElementById('image');
-  console.log(displayImage);
+  const headerImage = image.getAttribute('src');
 
-  if (displayImage.src.match('../assets/lock.png')) {
-    displayImage.src = '../assets/unlock.png';
-  } else {
-    displayImage.src = '../assets/lock.png';
-  }
+  headerImage === '../assets/lock.png'
+    ? image.setAttribute('src', '../assets/unlock.png')
+    : image.setAttribute('src', '../assets/lock.png');
 };
 
 // Get input Value, capitalize first letter
@@ -66,5 +70,4 @@ const signIn = () => {
 
 const signOut = () => {
   location.reload();
-  console.log('logged out');
 };

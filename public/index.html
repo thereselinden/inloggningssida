@@ -9,10 +9,9 @@
   </head>
   <body>
     <header>
-      <!-- change image depending on signed in or not if sign in profile image else -->
       <img
         src="../assets/lock.png"
-        alt="Company logo"
+        alt="lock logo"
         id="image"
         class="header-image"
       />
@@ -21,7 +20,11 @@
 
     <main>
       <section class="login-page" id="loginPage">
-        <form method="post">
+        <!-- varför kan jag inte ha 
+        onsubmit och kalla signIn() på form 
+        och typ submit på button?
+        För enklrare valideringskontroll?  -->
+        <form>
           <h1>Logga in</h1>
           <label for="username"
             >Användarnamn
@@ -35,6 +38,7 @@
               name="password"
               minlength="2"
               required
+              autocomplete
             />
           </label>
           <button
