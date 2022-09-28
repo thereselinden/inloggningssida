@@ -9,38 +9,62 @@
   </head>
   <body>
     <header>
-      <div>
-        <img src="#" alt="Company logo" id="companyLogo" />
-        <h1 id="userFirstName">First name</h1>
-      </div>
+      <!-- change image depending on signed in or not if sign in profile image else -->
+      <img
+        src="../assets/lock.png"
+        alt="Company logo"
+        id="image"
+        class="header-image"
+      />
+      <h1 id="userFirstName"></h1>
     </header>
+
     <main>
-      <form>
-        <label for="username">Användarnamn</label>
-        <input type="text" id="userName" name="username" required />
-        <label for="password">Lösenord</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          minlength="2"
-          required
-        />
-        <button type="submit" id="signInBtn" value="submit" onclick="signIn()">
-          Logga in
-        </button>
+      <section class="login-page" id="loginPage">
+        <form method="post">
+          <h1>Logga in</h1>
+          <label for="username"
+            >Användarnamn
+            <input type="text" id="username" name="username" required />
+          </label>
+          <label for="password"
+            >Lösenord
+            <input
+              type="password"
+              id="password"
+              name="password"
+              minlength="2"
+              required
+            />
+          </label>
+          <button
+            type="button"
+            id="signInBtn"
+            value="submit"
+            onclick="signIn()"
+          >
+            Logga in
+          </button>
+        </form>
+      </section>
+
+      <!-- Default display: hidden -->
+      <section class="welcome-page" id="welcomePage">
+        <!-- <h1 id="userFirstName">Hej Förnamn</h1> -->
         <button
-          type="submit"
-          id="signOutBtn"
+          class="sign-out-btn blue"
+          type="button"
+          id="logOutBtn"
           value="submit"
           onclick="signOut()"
         >
           Logga ut
         </button>
-      </form>
+      </section>
     </main>
+
     <footer>
-      <section>
+      <section class="footer-container">
         <p>Therese Lindén &#169; 2022</p>
         <p>Inlämningsuppgift - Medieinstitutet</p>
       </section>
