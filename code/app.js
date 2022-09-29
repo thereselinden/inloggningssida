@@ -3,6 +3,9 @@ const signInBtn = document.getElementById('signInBtn');
 //users saved in localStorage
 //removed array. kunde inte validera rätt användare.
 //behöver jag göra en loop då? under sign in()?
+
+//Kan jag skapa en en funktion som tar hänsyn till ifall men
+// råkar skriva fredrik med litet f?
 const users = {
   username: 'Fredrik',
   password: '1234',
@@ -19,26 +22,13 @@ const signIn = () => {
   const password = document.querySelector('#password').value;
   const getUsers = localStorage.getItem(users);
   const parseUsers = JSON.parse(getUsers);
-  //const userError = document.getElementById('userError');
-  //const passError = document.getElementById('passError');
 
   if (username === parseUsers.username && password === parseUsers.password) {
-    const loginPage = document.getElementById('loginPage');
-    loginPage.style.display = 'none';
-
-    const welcomePage = document.getElementById('welcomePage');
-    welcomePage.style.display = 'flex';
-
-    const capitalizeUsername =
-      username.charAt(0).toUpperCase() + username.slice(1);
-
-    document.getElementById(
-      'userFirstName'
-    ).innerHTML = `Hej, ${capitalizeUsername}`;
-
+    togglePageContent();
     toggleHeaderImage();
   } else {
     alert('something wrong');
+    clearInputField();
   }
 };
 
@@ -56,6 +46,31 @@ const toggleHeaderImage = () => {
     : image.setAttribute('src', '../assets/lock.png');
 };
 
+const togglePageContent = () => {
+  const username = document.getElementById('username').value;
+  const loginPage = document.getElementById('loginPage');
+  loginPage.style.display = 'none';
+
+  const welcomePage = document.getElementById('welcomePage');
+  welcomePage.style.display = 'flex';
+
+  const capitalizeUsername =
+    username.charAt(0).toUpperCase() + username.slice(1);
+
+  document.getElementById(
+    'userFirstName'
+  ).innerHTML = `Hej, ${capitalizeUsername}`;
+};
+
+// if wrong username & password entered, clear inputfields
+const clearInputField = () => {
+  const inputs = document.querySelectorAll('#username, #password');
+
+  inputs.forEach(input => {
+    input.value = '';
+  });
+};
+
 // const validateSignIn = () => {
 //   const storedUsername = parseUsers.map(user => user.username);
 //   const storedUserPassword = parseUsers.map(user => user.password);
@@ -67,7 +82,10 @@ const toggleHeaderImage = () => {
 //   // TODO: Separate error message depending on fail reason
 // };
 
-const showErrorMessage = () => {};
+const showErrorMessage = () => {
+  const userError = document.getElementById('userError');
+  const passError = document.getElementById('passError');
+};
 
 const signOut = () => {
   location.reload();
