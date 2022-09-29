@@ -1,7 +1,17 @@
+//JSON.stringify method converts a JavaScript value to a JSON string,
+//JSON.parse() the data becomes a JavaScript object.
+
+// TODO: IMPORTANT!!! If signed in and refresh page - stay logged in
+// TODO: Show error message if failed to log in
+// TODO: Can I create a separate validation function?
+// TODO: Can I create function that does'nt consider if username written with large or small letter?
+// TODO: Create function that throw specific message depending on whats failed
+// TODO: Create user page (username, password)
+// TODO: Push new user to localStorage array
+// TODO: Create flow sign in page -> create page button -> sign in -> weclome page
+
 const signInBtn = document.getElementById('signInBtn');
 
-// Kan jag skapa en en funktion som tar hänsyn till ifall men
-// råkar skriva fredrik med litet f?
 //USERS SAVED IN LOCALSTORAGE
 const users = [
   {
@@ -17,8 +27,7 @@ const users = [
 // SET VALUE OF SPECIFIC STORAGE OBJECT ITEM
 localStorage.setItem(users, JSON.stringify(users));
 
-// TODO: Show error message if failed to log in
-// TODO: Can I create a separate validation function?
+// SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
 const signIn = () => {
   const username = document.querySelector('#username').value;
   const password = document.querySelector('#password').value;
@@ -35,6 +44,7 @@ const signIn = () => {
     console.log('no');
   }
 
+  // IF TRUE EXECUTE OTHERWISE ERROR
   if (existsUser) {
     toggleHeaderImage();
     togglePageContent();
@@ -44,12 +54,13 @@ const signIn = () => {
   }
 };
 
-// Hide login page and show welcome page when sign in button clicked
+// STOP FORM TO UPDATE ON SUBMIT, CALL SIGNIN FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
   event.preventDefault();
   signIn();
 });
 
+// CHANGE HEADER IMG DEPENDING ON SIGNED IN OR NOT
 const toggleHeaderImage = () => {
   const headerImage = image.getAttribute('src');
 
@@ -58,6 +69,7 @@ const toggleHeaderImage = () => {
     : image.setAttribute('src', '../assets/lock.png');
 };
 
+// CHANGE PAGE CONTENT DEPENDING ON SIGNED IN OR NOT
 const togglePageContent = () => {
   const username = document.getElementById('username').value;
   const loginPage = document.getElementById('loginPage');
@@ -74,7 +86,7 @@ const togglePageContent = () => {
   ).innerHTML = `Hej, ${capitalizeUsername}`;
 };
 
-// if wrong username & password entered, clear inputfields
+// CLEAR INPUT FIELD IF NOT CORRECT
 const clearInputField = () => {
   const inputs = document.querySelectorAll('#username, #password');
 
@@ -83,20 +95,16 @@ const clearInputField = () => {
   });
 };
 
-// TODO: Throw specific message depending on whats failed
+// RELOAD CURRENT DOCUMENT
+const signOut = () => {
+  location.reload();
+};
+
+// THIS IS NOT IN USE - HOW CAN I USE IT?
 const showErrorMessage = () => {
   const userError = document.getElementById('userError');
   const passError = document.getElementById('passError');
 };
 
-const signOut = () => {
-  location.reload();
-};
-
-const createUser = () => {
-  // TODO: Push new user to localStorage array
-  // TODO: Create flow sign in page -> create page button -> sign in -> weclome page
-};
-
-//JSON.stringify method converts a JavaScript value to a JSON string,
-//JSON.parse() the data becomes a JavaScript object.
+// THIS IS NOT IN USE
+const createUser = () => {};
