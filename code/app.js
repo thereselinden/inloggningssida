@@ -1,5 +1,6 @@
 const signInBtn = document.getElementById('signInBtn');
 
+//Test branch
 //users saved in localStorage
 //removed array. kunde inte validera rätt användare.
 //behöver jag göra en loop då? under sign in()?
