@@ -1,20 +1,22 @@
 const signInBtn = document.getElementById('signInBtn');
 
-//users saved in localStorage
-//removed array. kunde inte validera rätt användare.
-//behöver jag göra en loop då? under sign in()?
-
-//Kan jag skapa en en funktion som tar hänsyn till ifall men
+// Kan jag skapa en en funktion som tar hänsyn till ifall men
 // råkar skriva fredrik med litet f?
-const users = {
-  username: 'Fredrik',
-  password: '1234',
-};
+//USERS SAVED IN LOCALSTORAGE
+const users = [
+  {
+    username: 'Fredrik',
+    password: '1234',
+  },
+  {
+    username: 'Therese',
+    password: '1234',
+  },
+];
 
-// Put object to storage
+// SET VALUE OF SPECIFIC STORAGE OBJECT ITEM
 localStorage.setItem(users, JSON.stringify(users));
 
-// TODO: Validate user login. ONLY if stored in localStorage
 // TODO: Show error message if failed to log in
 // TODO: Can I create a separate validation function?
 const signIn = () => {
@@ -23,11 +25,21 @@ const signIn = () => {
   const getUsers = localStorage.getItem(users);
   const parseUsers = JSON.parse(getUsers);
 
-  if (username === parseUsers.username && password === parseUsers.password) {
-    togglePageContent();
-    toggleHeaderImage();
+  const existsUser = parseUsers.find(
+    user => user.username === username && user.password === password
+  );
+
+  if (existsUser) {
+    console.log('Yes');
   } else {
-    alert('something wrong');
+    console.log('no');
+  }
+
+  if (existsUser) {
+    toggleHeaderImage();
+    togglePageContent();
+  } else {
+    alert('something went wrong');
     clearInputField();
   }
 };
@@ -71,17 +83,7 @@ const clearInputField = () => {
   });
 };
 
-// const validateSignIn = () => {
-//   const storedUsername = parseUsers.map(user => user.username);
-//   const storedUserPassword = parseUsers.map(user => user.password);
-//   console.log(storedUsername, storedUserPassword);
-
-//   // TODO: Validate that user exist in users array
-//   // TODO: Validate that user enter correct stored password
-//   // TODO: Show error message if failed
-//   // TODO: Separate error message depending on fail reason
-// };
-
+// TODO: Throw specific message depending on whats failed
 const showErrorMessage = () => {
   const userError = document.getElementById('userError');
   const passError = document.getElementById('passError');
