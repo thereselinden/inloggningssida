@@ -2,7 +2,6 @@
 //JSON.parse() the data becomes a JavaScript object.
 
 // TODO: IMPORTANT!!! If signed in and refresh page - stay logged in
-// TODO: Show error message if failed to log in
 // TODO: Can I create a separate validation function?
 // TODO: Can I create function that does'nt consider if username written with large or small letter?
 // TODO: Create function that throw specific message depending on whats failed
@@ -11,16 +10,17 @@
 // TODO: Create flow sign in page -> create page button -> sign in -> weclome page
 
 const signInBtn = document.getElementById('signInBtn');
+const createUserLink = document.getElementById('createUserLink');
 
 //USERS SAVED IN LOCALSTORAGE
 const users = [
   {
-    username: 'Fredrik',
-    password: '1234',
+    username: 'fredrik',
+    password: '12345',
   },
   {
-    username: 'Therese',
-    password: '1234',
+    username: 'therese',
+    password: '12345',
   },
 ];
 
@@ -38,18 +38,13 @@ const signIn = () => {
     user => user.username === username && user.password === password
   );
 
-  if (existsUser) {
-    console.log('Yes');
-  } else {
-    console.log('no');
-  }
-
   // IF TRUE EXECUTE OTHERWISE ERROR
   if (existsUser) {
     toggleHeaderImage();
-    togglePageContent();
+    showWelcomePage();
+    localStorage.setItem(username, password);
   } else {
-    alert('something went wrong');
+    document.getElementById('errorMessage').innerHTML = 'Felaktig inloggning';
     clearInputField();
   }
 };
@@ -70,7 +65,7 @@ const toggleHeaderImage = () => {
 };
 
 // CHANGE PAGE CONTENT DEPENDING ON SIGNED IN OR NOT
-const togglePageContent = () => {
+const showWelcomePage = () => {
   const username = document.getElementById('username').value;
   const loginPage = document.getElementById('loginPage');
   loginPage.style.display = 'none';
@@ -84,6 +79,14 @@ const togglePageContent = () => {
   document.getElementById(
     'userFirstName'
   ).innerHTML = `Hej, ${capitalizeUsername}`;
+
+  // HUR PLACERAR JAG DENNA I MIN welcome-page klass???
+  // const signOutBtn = document.createElement('button');
+  // signOutBtn.innerHTML = 'Logga ut';
+  // signOutBtn.onclick = () => {
+  //   signOut();
+  // };
+  // document.body.appendChild(signOutBtn);
 };
 
 // CLEAR INPUT FIELD IF NOT CORRECT
@@ -100,11 +103,8 @@ const signOut = () => {
   location.reload();
 };
 
-// THIS IS NOT IN USE - HOW CAN I USE IT?
-const showErrorMessage = () => {
-  const userError = document.getElementById('userError');
-  const passError = document.getElementById('passError');
-};
-
 // THIS IS NOT IN USE
-const createUser = () => {};
+const createUser = () => {
+  //kolla så användaren inte redan finns
+  // push till localstorage
+};

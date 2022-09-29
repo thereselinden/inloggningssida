@@ -19,7 +19,7 @@
     </header>
 
     <main>
-      <section class="login-page" id="loginPage">
+      <section class="login-page form-page" id="loginPage">
         <!-- Method POST för att inte visa user + lösen i url -->
         <form onsubmit="signIn()" method="POST">
           <h1>Logga in</h1>
@@ -32,7 +32,6 @@
               required
               autocomplete="off"
             />
-            <div class="error-msg-username" id="userError"></div>
           </label>
           <label for="password"
             >Lösenord
@@ -43,13 +42,14 @@
               minlength="2"
               required
             />
-            <div class="error-msg-password" id="passError"></div>
           </label>
+          <div class="error-msg" id="errorMessage"></div>
           <button type="submit" id="signInBtn" value="submit">Logga in</button>
         </form>
       </section>
 
       <section class="welcome-page" id="welcomePage">
+        <!-- kan jag skapa denna knapp i javascript istället?  -->
         <button
           class="sign-out-btn blue"
           type="button"
