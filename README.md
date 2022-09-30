@@ -10,8 +10,8 @@
 - Välkomstsida för inloggade användare
 - En testperson skapad och sparad i localStorage
   - Testpersoner som är skapade:
-    användarnamn: fredrik, lösenord: 12345
-    användarnamn: therese, lösenord: 12345
+    `användarnamn: fredrik, lösenord: 12345`
+    `användarnamn: therese, lösenord: 12345`
 - Ska kunna logga ut inloggad användare
 
 ## Se sidan live
