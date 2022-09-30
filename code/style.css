@@ -20,7 +20,7 @@ img {
 }
 
 h1 {
-  margin: 0;
+  margin: 0 0 1rem;
 }
 
 /**** MAIN ****/
@@ -43,10 +43,28 @@ main {
 form {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+}
+
+label {
+  margin: 0;
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 50%;
+  margin: 0;
 }
 
 .error-msg {
-  color: red;
+  color: rgb(195, 54, 54);
 }
 
 .welcome-page {
@@ -55,7 +73,8 @@ form {
   max-width: 600px;
 }
 
-.sign-out-btn {
+.sign-out-btn,
+.sign-in-btn {
   background-color: #3d69e1;
   color: #fff;
   border: none;
