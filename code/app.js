@@ -1,6 +1,3 @@
-//JSON.stringify method converts a JavaScript value to a JSON string,
-//JSON.parse() the data becomes a JavaScript object.
-
 // TODO: 1. IMPORTANT!!! If signed in and refresh page - stay logged in
 // TODO: 2. Create function that throw specific message depending on whats failed
 // TODO: 3. Create user page (username, password)
@@ -32,10 +29,10 @@ const users = [
   },
 ];
 
-// SET VALUE OF SPECIFIC STORAGE OBJECT ITEM
-localStorage.setItem('users', JSON.stringify(users));
-const getUsers = localStorage.getItem(users);
-const parseUsers = JSON.parse(getUsers);
+//convert users array to JSON string
+const json = JSON.stringify(users);
+//save to localStorage
+localStorage.setItem('users', json);
 
 // STOP FORM TO UPDATE ON SUBMIT, CALL SIGNIN FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
@@ -50,21 +47,24 @@ signInBtn.addEventListener('click', event => {
 
 // SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
 const signIn = () => {
-  const existsUser = parseUsers.find(
-    user => user.username === username.value && user.password === password.value
-  );
+  // VARFÖR SPARAS INTE UPPGIFTER OM JAG UPPDATERAR SIDAN????
+  const loginUser = document.getElementById('username').value;
+  const loginPass = document.getElementById('password').value;
 
-  // IF TRUE EXECUTE OTHERWISE ERROR
-  if (existsUser) {
-    toggleHeaderImage();
-    showWelcomePage();
-    localStorage.setItem(username, password);
+  if (localStorage.getItem('users')) {
+    // get string from localstorage and convert to valid object
+    const storedUsers = JSON.parse(localStorage.getItem('users'));
+    const existUser = storedUsers.find(user => {
+      return loginUser === user.username && loginPass === user.password;
+    });
+    if (existUser) {
+      toggleHeaderImage();
+      showWelcomePage();
+    } else {
+      showErrorMessage();
+    }
   } else {
-    showErrorMessage();
-    clearInputField();
-    setTimeout(() => {
-      errorMessage.style.display = 'none';
-    }, 3000);
+    throw 'Nothing saved in LocalStorage';
   }
 };
 
@@ -80,8 +80,6 @@ const toggleHeaderImage = () => {
 // CHANGE PAGE CONTENT DEPENDING ON SIGNED IN OR NOT
 const showWelcomePage = () => {
   loginPage.style.display = 'none';
-
-  const welcomePage = document.getElementById('welcomePage');
   welcomePage.style.display = 'flex';
 
   const capitalizeUsername =
@@ -102,11 +100,14 @@ const showWelcomePage = () => {
 };
 
 const showErrorMessage = () => {
-  if (username.value == '' || password.value == '') {
+  if (username.value === '' || password.value === '') {
     errorMessage.innerHTML = 'Information får inte vara blank';
   } else {
     errorMessage.innerHTML = 'Användaren finns inte';
   }
+  setTimeout(() => {
+    errorMessage.style.display = 'none';
+  }, 3000);
 };
 
 // CLEAR INPUT FIELD IF NOT CORRECT
