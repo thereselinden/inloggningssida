@@ -1,3 +1,8 @@
+// IMPORTANT!
+// If signed in and page refresh - log out
+// If typed wrong inputfield - error message - type wrong again - NOTHING?!
+// If I want to create signOut btn using javascript, can I place it inside HTML created class? And not .body???
+
 // TODO: 1. IMPORTANT!!! If signed in and refresh page - stay logged in
 // TODO: 2. Create function that throw specific message depending on whats failed
 // TODO: 3. Create user page (username, password)
@@ -42,26 +47,31 @@ signInBtn.addEventListener('click', event => {
 
 /// DENNA FUNKAR INTE, BYTER INTE IMAGE... VARFÖR??
 // signOutBtn.addEventListener('click', () => {
-//   signOut();
+//   signOut ();
 // });
 
 // SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
 const signIn = () => {
   // VARFÖR SPARAS INTE UPPGIFTER OM JAG UPPDATERAR SIDAN????
   const loginUser = document.getElementById('username').value;
-  const loginPass = document.getElementById('password').value;
+  const loginPassword = document.getElementById('password').value;
 
   if (localStorage.getItem('users')) {
     // get string from localstorage and convert to valid object
     const storedUsers = JSON.parse(localStorage.getItem('users'));
-    const existUser = storedUsers.find(user => {
-      return loginUser === user.username && loginPass === user.password;
-    });
+    const existUser = storedUsers.find(
+      user => loginUser === user.username && loginPassword === user.password
+    );
+
     if (existUser) {
+      console.log('exist', existUser);
+      // localStorage.setItem();
       toggleHeaderImage();
       showWelcomePage();
     } else {
+      console.log('in else');
       showErrorMessage();
+      clearInputField();
     }
   } else {
     throw 'Nothing saved in LocalStorage';
@@ -90,13 +100,22 @@ const showWelcomePage = () => {
     'userFirstName'
   ).innerHTML = `Hej, ${capitalizeUsername}`;
 
-  // HUR PLACERAR JAG DENNA I MIN welcome-page klass???
-  // const signOutBtn = document.createElement('button');
-  // signOutBtn.innerHTML = 'Logga ut';
-  // signOutBtn.onclick = () => {
-  //   signOut();
-  // };
-  // document.body.appendChild(signOutBtn);
+  createSignOutButtonElement();
+};
+
+const createSignOutButtonElement = () => {
+  const welcomePageContainer = document.createElement('div');
+  welcomePageContainer.classList.add('welcome-page-container');
+
+  const signOutBtn = document.createElement('button');
+  signOutBtn.innerText = 'Logga ut';
+  signOutBtn.onclick = () => {
+    signOut();
+  };
+  signOutBtn.classList.add('sign-out-btn');
+
+  welcomePageContainer.append(signOutBtn);
+  welcomePage.appendChild(welcomePageContainer);
 };
 
 const showErrorMessage = () => {

@@ -67,8 +67,8 @@ input {
   color: rgb(195, 54, 54);
 }
 
-.welcome-page {
-  display: none;
+.welcome-page-container {
+  /* display: none; */
   width: 80%;
   max-width: 600px;
 }
