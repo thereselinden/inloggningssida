@@ -21,51 +21,62 @@ const users = [
     username: 'fredrik',
     password: '12345',
   },
+  {
+    username: 'therese',
+    password: 'hejsan',
+  },
 ];
 
-// function to push new userobject to users array
+//function to push new userobject to users array
 // const addUser = (username, password) => {
 //   users.push({
 //     username,
 //     password,
 //   });
 //   localStorage.setItem('users', JSON.stringify(users));
-
 // };
+// addUser('KalleAnvändare', 'KalleLösen');
 
-// function should be called when creatusername.value & createpassword.value
-//addUser('therese', 'hejhej');
-
-localStorage.setItem('users', JSON.stringify(users));
+const json = localStorage.setItem('users', JSON.stringify(users));
+const getJson = JSON.parse(localStorage.getItem('users'));
+console.log('Getjson', getJson);
 
 // STOP FORM TO UPDATE ON SUBMIT, CALL SIGNIN FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
   event.preventDefault();
-  signIn();
+  existUserInLS();
 });
 
-// SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
-const signIn = () => {
-  const loginUser = username.value;
-  const loginPassword = password.value;
-
-  // if (localStorage.getItem('users')) {
-  const storedUsers = JSON.parse(localStorage.getItem('users'));
-  const existUser = storedUsers.find(
-    user => loginUser === user.username && loginPassword === user.password
+// CHECK IF USER EXIST IN LOCALSTORAGE IF SO CALL SUCESS else FAIL
+const existUserInLS = () => {
+  const existUser = users.find(
+    user => username.value === user.username && password.value === user.password
   );
 
   if (existUser) {
-    toggleHeaderImage();
-    showWelcomePage();
+    console.log('exist', existUser);
+    localStorage.setItem('isLoggedIn', true);
+    signInSucessful();
   } else {
-    showErrorMessage();
-    clearInputField();
+    signInFail();
   }
-  // }
-  // else {
-  //   throw 'Nothing saved in LocalStorage';
-  // }
+};
+
+const isLoggedIn = localStorage.getItem('isLoggedIn');
+console.log('new get', isLoggedIn);
+
+// SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
+const signInSucessful = () => {
+  toggleHeaderImage();
+  showWelcomePage();
+
+  //const userExists = JSON.parse(localStorage.getItem('users'));
+  //console.log('userExists', userExists);
+};
+
+const signInFail = () => {
+  showErrorMessage();
+  clearInputField();
 };
 
 // CHANGE HEADER IMG DEPENDING ON SIGNED IN OR NOT
@@ -139,3 +150,16 @@ const signOut = () => {
   toggleHeaderImage();
   clearInputField();
 };
+
+// function to push new userobject to users array
+// const addUser = (username, password) => {
+//   users.push({
+//     username,
+//     password,
+//   });
+//   localStorage.setItem('users', JSON.stringify(users));
+
+// };
+
+// function should be called when creatusername.value & createpassword.value
+//addUser('therese', 'hejhej');
