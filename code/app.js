@@ -1,18 +1,13 @@
-// IMPORTANT!
-// If signed in and page refresh - log out
-// If typed wrong inputfield - error message - type wrong again - NOTHING?!
-// If I want to create signOut btn using javascript, can I place it inside HTML created class? And not .body???
-
 // TODO: 1. IMPORTANT!!! If signed in and refresh page - stay logged in
-// TODO: 2. Create function that throw specific message depending on whats failed
 // TODO: 3. Create user page (username, password)
 // TODO: 4. Push new user to localStorage array
-// TODO: 5. Create flow sign in page -> create page button -> sign in -> weclome page
-// TODO: 6. Can I create a separate validation function?
+// TODO: 5. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
+// TODO: 6. If typed wrong inputfield - error message - type wrong again - NOTHING?!
 // TODO: 7. Can I create function that does'nt consider if username written with large or small letter?
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
+const createForm = document.getElementById('createForm');
 
 const username = document.getElementById('username');
 const password = document.getElementById('password');
@@ -20,24 +15,28 @@ const password = document.getElementById('password');
 const errorMessage = document.getElementById('errorMessage');
 
 const signInBtn = document.getElementById('signInBtn');
-const signOutBtn = document.getElementById('signOutBtn');
 
-//USERS SAVED IN LOCALSTORAGE
 const users = [
   {
     username: 'fredrik',
     password: '12345',
   },
-  {
-    username: 'therese',
-    password: '12345',
-  },
 ];
 
-//convert users array to JSON string
-const json = JSON.stringify(users);
-//save to localStorage
-localStorage.setItem('users', json);
+// function to push new userobject to users array
+// const addUser = (username, password) => {
+//   users.push({
+//     username,
+//     password,
+//   });
+//   localStorage.setItem('users', JSON.stringify(users));
+
+// };
+
+// function should be called when creatusername.value & createpassword.value
+//addUser('therese', 'hejhej');
+
+localStorage.setItem('users', JSON.stringify(users));
 
 // STOP FORM TO UPDATE ON SUBMIT, CALL SIGNIN FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
@@ -45,37 +44,28 @@ signInBtn.addEventListener('click', event => {
   signIn();
 });
 
-/// DENNA FUNKAR INTE, BYTER INTE IMAGE... VARFÖR??
-// signOutBtn.addEventListener('click', () => {
-//   signOut ();
-// });
-
 // SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
 const signIn = () => {
-  // VARFÖR SPARAS INTE UPPGIFTER OM JAG UPPDATERAR SIDAN????
-  const loginUser = document.getElementById('username').value;
-  const loginPassword = document.getElementById('password').value;
+  const loginUser = username.value;
+  const loginPassword = password.value;
 
-  if (localStorage.getItem('users')) {
-    // get string from localstorage and convert to valid object
-    const storedUsers = JSON.parse(localStorage.getItem('users'));
-    const existUser = storedUsers.find(
-      user => loginUser === user.username && loginPassword === user.password
-    );
+  // if (localStorage.getItem('users')) {
+  const storedUsers = JSON.parse(localStorage.getItem('users'));
+  const existUser = storedUsers.find(
+    user => loginUser === user.username && loginPassword === user.password
+  );
 
-    if (existUser) {
-      console.log('exist', existUser);
-      // localStorage.setItem();
-      toggleHeaderImage();
-      showWelcomePage();
-    } else {
-      console.log('in else');
-      showErrorMessage();
-      clearInputField();
-    }
+  if (existUser) {
+    toggleHeaderImage();
+    showWelcomePage();
   } else {
-    throw 'Nothing saved in LocalStorage';
+    showErrorMessage();
+    clearInputField();
   }
+  // }
+  // else {
+  //   throw 'Nothing saved in LocalStorage';
+  // }
 };
 
 // CHANGE HEADER IMG DEPENDING ON SIGNED IN OR NOT
@@ -95,7 +85,6 @@ const showWelcomePage = () => {
   const capitalizeUsername =
     username.value.charAt(0).toUpperCase() + username.value.slice(1);
 
-  //Kan jag byta ut innerHTML (farligt att använda då hackare kan skriva in vad som)
   document.getElementById(
     'userFirstName'
   ).innerHTML = `Hej, ${capitalizeUsername}`;
@@ -103,6 +92,7 @@ const showWelcomePage = () => {
   createSignOutButtonElement();
 };
 
+// CREATE SIGN OUT BUTTON
 const createSignOutButtonElement = () => {
   const welcomePageContainer = document.createElement('div');
   welcomePageContainer.classList.add('welcome-page-container');
@@ -118,6 +108,7 @@ const createSignOutButtonElement = () => {
   welcomePage.appendChild(welcomePageContainer);
 };
 
+// DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
 const showErrorMessage = () => {
   if (username.value === '' || password.value === '') {
     errorMessage.innerHTML = 'Information får inte vara blank';
@@ -143,12 +134,8 @@ const signOut = () => {
   loginPage.style.display = 'flex';
   welcomePage.style.display = 'none';
   document.getElementById('userFirstName').innerHTML = '';
+  // blir ett problem när man loggar ut och sidan inte refreshas, localStorage är då tomt
+  localStorage.clear();
   toggleHeaderImage();
   clearInputField();
-};
-
-// THIS IS NOT IN USE
-const createUser = () => {
-  //kolla så användaren inte redan finns
-  // push till localstorage
 };
