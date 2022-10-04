@@ -28,7 +28,11 @@ const userJson = localStorage.setItem('users', JSON.stringify(users));
 // CHECK IF isLoggedIn value exist (true) in localStorage. If true call signInSucessful to show welcomePage content
 const init = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
-  if (isLoggedIn) {
+  const currentSignedIn = JSON.parse(
+    localStorage.getItem('currentSignedInUser')
+  );
+
+  if (isLoggedIn && currentSignedIn) {
     signInSucessful();
   }
 };
@@ -43,16 +47,19 @@ signInBtn.addEventListener('click', event => {
 // CHECK IF USER EXIST IN LOCALSTORAGE IF SO CALL SUCESS else FAIL
 const existUserInLS = () => {
   const getStoredUsers = JSON.parse(localStorage.getItem('users'));
-
   const existUser = getStoredUsers.find(
     user => user.username === username.value && user.password === password.value
   );
 
   if (existUser) {
     localStorage.setItem('isLoggedIn', JSON.stringify(true));
-    const userLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    const isUserLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    localStorage.setItem('currentSignedInUser', JSON.stringify(username.value));
+    const currentLoggedInUser = JSON.parse(
+      localStorage.getItem('currentSignedInUser')
+    );
 
-    if (userLoggedIn) {
+    if (isUserLoggedIn && currentLoggedInUser) {
       signInSucessful();
     }
   } else {
@@ -84,14 +91,19 @@ function showWelcomePage() {
   loginPage.style.display = 'none';
   welcomePage.style.display = 'flex';
 
+  createSignOutButtonElement();
+  capitalizeName();
+}
+
+function capitalizeName() {
+  const loggedInUser = JSON.parse(localStorage.getItem('currentSignedInUser'));
+
   const capitalizeUsername =
-    username.value.charAt(0).toUpperCase() + username.value.slice(1);
+    loggedInUser.charAt(0).toUpperCase() + loggedInUser.slice(1);
 
   document.getElementById(
     'userFirstName'
   ).innerHTML = `Hej, ${capitalizeUsername}`;
-
-  createSignOutButtonElement();
 }
 
 // CREATE SIGN OUT BUTTON
@@ -132,14 +144,15 @@ const clearInputField = () => {
 };
 
 // RELOAD CURRENT DOCUMENT
-const signOut = () => {
+function signOut() {
   loginPage.style.display = 'flex';
   welcomePage.style.display = 'none';
   document.getElementById('userFirstName').innerHTML = '';
   toggleHeaderImage();
   clearInputField();
   localStorage.setItem('isLoggedIn', JSON.stringify(false));
-};
+  localStorage.removeItem('currentSignedInUser');
+}
 
 // function to push new userobject to users array
 // const addUser = (username, password) => {
