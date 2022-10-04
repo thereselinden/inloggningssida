@@ -1,19 +1,16 @@
 // TODO: 1. IMPORTANT!!! If signed in and refresh page - stay logged in
+
 // TODO: 3. Create user page (username, password)
 // TODO: 4. Push new user to localStorage array
 // TODO: 5. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
-// TODO: 6. If typed wrong inputfield - error message - type wrong again - NOTHING?!
 // TODO: 7. Can I create function that does'nt consider if username written with large or small letter?
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
 const createForm = document.getElementById('createForm');
-
 const username = document.getElementById('username');
 const password = document.getElementById('password');
-
 const errorMessage = document.getElementById('errorMessage');
-
 const signInBtn = document.getElementById('signInBtn');
 
 const users = [
@@ -27,52 +24,62 @@ const users = [
   },
 ];
 
-//function to push new userobject to users array
-// const addUser = (username, password) => {
-//   users.push({
-//     username,
-//     password,
-//   });
-//   localStorage.setItem('users', JSON.stringify(users));
-// };
-// addUser('KalleAnvändare', 'KalleLösen');
+//Only save all users username in localStorage, not password
+// const json = localStorage.setItem(
+//   'users',
+//   JSON.stringify(users.map(user => user.username))
+// );
 
-const json = localStorage.setItem('users', JSON.stringify(users));
-const getJson = JSON.parse(localStorage.getItem('users'));
-console.log('Getjson', getJson);
+const userJson = localStorage.setItem('users', JSON.stringify(users));
+//const loggedInStatus = localStorage.setItem('isLoggedIn', false);
+//const getLoggedInStatus = localStorage.getItem('isLoggedIn');
 
-// STOP FORM TO UPDATE ON SUBMIT, CALL SIGNIN FUNCTION ON CLICK
+//initi funktion
+
+const init = () => {
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+  console.log(typeof isLoggedIn);
+  if (isLoggedIn) {
+    console.log('innan signin call');
+    signInSucessful();
+  }
+};
+init();
+
+// STOP FORM TO UPDATE ON SUBMIT, CALL EXISTUSER FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
   event.preventDefault();
+
   existUserInLS();
 });
 
 // CHECK IF USER EXIST IN LOCALSTORAGE IF SO CALL SUCESS else FAIL
 const existUserInLS = () => {
-  const existUser = users.find(
-    user => username.value === user.username && password.value === user.password
+  const getStoredUsers = JSON.parse(localStorage.getItem('users'));
+
+  const existUser = getStoredUsers.find(
+    user => user.username === username.value && user.password === password.value
   );
 
   if (existUser) {
-    console.log('exist', existUser);
-    localStorage.setItem('isLoggedIn', true);
-    signInSucessful();
+    localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    const userLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+
+    if (userLoggedIn) {
+      signInSucessful();
+    }
   } else {
     signInFail();
   }
 };
 
-const isLoggedIn = localStorage.getItem('isLoggedIn');
-console.log('new get', isLoggedIn);
-
 // SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
-const signInSucessful = () => {
+function signInSucessful() {
   toggleHeaderImage();
   showWelcomePage();
-
-  //const userExists = JSON.parse(localStorage.getItem('users'));
-  //console.log('userExists', userExists);
-};
+}
+//const userExists = JSON.parse(localStorage.getItem('users'));
+//console.log('userExists', userExists);
 
 const signInFail = () => {
   showErrorMessage();
@@ -80,16 +87,16 @@ const signInFail = () => {
 };
 
 // CHANGE HEADER IMG DEPENDING ON SIGNED IN OR NOT
-const toggleHeaderImage = () => {
+function toggleHeaderImage() {
   const headerImage = image.getAttribute('src');
 
   headerImage === '../assets/lock.png'
     ? image.setAttribute('src', '../assets/unlock.png')
     : image.setAttribute('src', '../assets/lock.png');
-};
+}
 
 // CHANGE PAGE CONTENT DEPENDING ON SIGNED IN OR NOT
-const showWelcomePage = () => {
+function showWelcomePage() {
   loginPage.style.display = 'none';
   welcomePage.style.display = 'flex';
 
@@ -101,10 +108,10 @@ const showWelcomePage = () => {
   ).innerHTML = `Hej, ${capitalizeUsername}`;
 
   createSignOutButtonElement();
-};
+}
 
 // CREATE SIGN OUT BUTTON
-const createSignOutButtonElement = () => {
+function createSignOutButtonElement() {
   const welcomePageContainer = document.createElement('div');
   welcomePageContainer.classList.add('welcome-page-container');
 
@@ -117,7 +124,7 @@ const createSignOutButtonElement = () => {
 
   welcomePageContainer.append(signOutBtn);
   welcomePage.appendChild(welcomePageContainer);
-};
+}
 
 // DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
 const showErrorMessage = () => {
@@ -127,7 +134,7 @@ const showErrorMessage = () => {
     errorMessage.innerHTML = 'Användaren finns inte';
   }
   setTimeout(() => {
-    errorMessage.style.display = 'none';
+    errorMessage.innerHTML = '';
   }, 3000);
 };
 
@@ -149,6 +156,7 @@ const signOut = () => {
   localStorage.clear();
   toggleHeaderImage();
   clearInputField();
+  localStorage.setItem('isLoggedIn', JSON.stringify(false));
 };
 
 // function to push new userobject to users array
@@ -163,3 +171,13 @@ const signOut = () => {
 
 // function should be called when creatusername.value & createpassword.value
 //addUser('therese', 'hejhej');
+
+//function to push new userobject to users array
+// const addUser = (username, password) => {
+//   users.push({
+//     username,
+//     password,
+//   });
+//   localStorage.setItem('users', JSON.stringify(users));
+// };
+// addUser('KalleAnvändare', 'KalleLösen');
