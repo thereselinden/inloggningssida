@@ -1,9 +1,8 @@
-// TODO: 1. IMPORTANT!!! If signed in and refresh page - stay logged in
-
-// TODO: 3. Create user page (username, password)
-// TODO: 4. Push new user to localStorage array
-// TODO: 5. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
-// TODO: 7. Can I create function that does'nt consider if username written with large or small letter?
+// TODO: 1. Keep login name on page refresh
+// TODO: 2. Create user page (username, password)
+// TODO: 3. Push new user to localStorage array
+// TODO: 4. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
+// TODO: 5. Can I create function that does'nt consider if username written with large or small letter?
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
@@ -24,23 +23,12 @@ const users = [
   },
 ];
 
-//Only save all users username in localStorage, not password
-// const json = localStorage.setItem(
-//   'users',
-//   JSON.stringify(users.map(user => user.username))
-// );
-
 const userJson = localStorage.setItem('users', JSON.stringify(users));
-//const loggedInStatus = localStorage.setItem('isLoggedIn', false);
-//const getLoggedInStatus = localStorage.getItem('isLoggedIn');
 
-//initi funktion
-
+// CHECK IF isLoggedIn value exist (true) in localStorage. If true call signInSucessful to show welcomePage content
 const init = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
-  console.log(typeof isLoggedIn);
   if (isLoggedIn) {
-    console.log('innan signin call');
     signInSucessful();
   }
 };
@@ -49,7 +37,6 @@ init();
 // STOP FORM TO UPDATE ON SUBMIT, CALL EXISTUSER FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
   event.preventDefault();
-
   existUserInLS();
 });
 
@@ -73,13 +60,10 @@ const existUserInLS = () => {
   }
 };
 
-// SIGN IN ONLY IF USER EXISTS IN LOCALSTORAGE
 function signInSucessful() {
   toggleHeaderImage();
   showWelcomePage();
 }
-//const userExists = JSON.parse(localStorage.getItem('users'));
-//console.log('userExists', userExists);
 
 const signInFail = () => {
   showErrorMessage();
@@ -152,8 +136,6 @@ const signOut = () => {
   loginPage.style.display = 'flex';
   welcomePage.style.display = 'none';
   document.getElementById('userFirstName').innerHTML = '';
-  // blir ett problem när man loggar ut och sidan inte refreshas, localStorage är då tomt
-  localStorage.clear();
   toggleHeaderImage();
   clearInputField();
   localStorage.setItem('isLoggedIn', JSON.stringify(false));
@@ -172,12 +154,8 @@ const signOut = () => {
 // function should be called when creatusername.value & createpassword.value
 //addUser('therese', 'hejhej');
 
-//function to push new userobject to users array
-// const addUser = (username, password) => {
-//   users.push({
-//     username,
-//     password,
-//   });
-//   localStorage.setItem('users', JSON.stringify(users));
-// };
-// addUser('KalleAnvändare', 'KalleLösen');
+//Only save all users username in localStorage, not password
+// const json = localStorage.setItem(
+//   'users',
+//   JSON.stringify(users.map(user => user.username))
+// );
