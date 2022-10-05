@@ -1,4 +1,4 @@
-// TODO: 1. Keep login name on page refresh
+// TODO: 1. If sign out and logged in button showed 2 times. After page refresh correct... something in signout function?
 // TODO: 2. Create user page (username, password)
 // TODO: 3. Push new user to localStorage array
 // TODO: 4. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
@@ -109,11 +109,13 @@ function capitalizeName() {
 // CREATE SIGN OUT BUTTON
 function createSignOutButtonElement() {
   const welcomePageContainer = document.createElement('div');
+  console.log('welcomePageContainer', welcomePageContainer);
   welcomePageContainer.classList.add('welcome-page-container');
 
   const signOutBtn = document.createElement('button');
   signOutBtn.innerText = 'Logga ut';
   signOutBtn.onclick = () => {
+    welcomePageContainer.remove();
     signOut();
   };
   signOutBtn.classList.add('sign-out-btn');
