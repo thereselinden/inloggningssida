@@ -103,6 +103,11 @@ input {
   display: none;
 }
 
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /**** FOOTER ****/
 
 footer {

@@ -15,6 +15,8 @@ const createAccountLink = document.getElementById('createAccountLink');
 const createBtn = document.getElementById('createBtn');
 const signInLink = document.getElementById('signInLink');
 
+const link = document.getElementById('link');
+
 const users = [
   {
     username: 'fredrik',
@@ -24,11 +26,14 @@ const users = [
     username: 'therese',
     password: 'hejsan',
   },
+  {
+    username: 'katten',
+    password: 'mjau',
+  },
 ];
 
 if (!localStorage.getItem('users')) {
   localStorage.setItem('users', JSON.stringify(users));
-  console.log('in if ');
 }
 // CHECK IF isLoggedIn value exist (true) in localStorage. If true call signInSucessful to show welcomePage content
 const init = () => {
@@ -78,7 +83,11 @@ function signInSucessful() {
 }
 
 const signInFail = () => {
-  showErrorMessage();
+  if (username.value === '' || password.value === '') {
+    showErrorMessage('Information får inte vara blank');
+  } else {
+    showErrorMessage('Har du angett korrekta uppgifter?');
+  }
   clearInputField();
 };
 
@@ -130,22 +139,20 @@ function createSignOutButtonElement() {
 }
 
 // DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
-const showErrorMessage = () => {
+function showErrorMessage(message) {
   const errorMessage = document.getElementById('errorMessage');
+  errorMessage.textContent = message;
 
-  if (username.value === '' || password.value === '') {
-    errorMessage.innerHTML = 'Information får inte vara blank';
-  } else {
-    errorMessage.innerHTML = 'Har du angett korrekta uppgifter?';
-  }
   setTimeout(() => {
-    errorMessage.innerHTML = '';
+    errorMessage.textContent = '';
   }, 3000);
-};
+}
 
 // CLEAR INPUT FIELD IF NOT CORRECT
 const clearInputField = () => {
-  const inputs = document.querySelectorAll('#username, #password');
+  const inputs = document.querySelectorAll(
+    '#username, #password, #createUsername, #createPassword'
+  );
 
   inputs.forEach(input => {
     input.value = '';
@@ -170,8 +177,8 @@ createAccountLink.addEventListener('click', () => {
   createPage.style.display = 'flex';
 });
 
-createBtn.addEventListener('click', () => {
-  console.log('create btn clicked');
+createBtn.addEventListener('click', event => {
+  event.preventDefault();
   createNewUser();
 });
 
@@ -181,14 +188,26 @@ function createNewUser() {
   const createUsername = document.getElementById('createUsername');
   const createPassword = document.getElementById('createPassword');
 
-  users.push({
-    username: createUsername.value,
-    password: createPassword.value,
-  });
+  const duplicateUsers = users.find(
+    user => user.username === createUsername.value
+  );
+
+  if (duplicateUsers) {
+    //meddelandet visas inte!
+    showErrorMessage('Användarnamnet är tyvärr upptaget!');
+    console.log('create inside if');
+    clearInputField();
+  } else {
+    users.push({
+      username: createUsername.value,
+      password: createPassword.value,
+    });
+    clearInputField();
+    alert('Klicka på logga in för att komma åt din nyskapade profil!');
+  }
+  //console.log('duplicateValues', typeof duplicateUsers);
 
   localStorage.setItem('users', JSON.stringify(users));
-
-  loginPage.style.display = 'flex';
 }
 
 // Called when user click create account link from startpage
