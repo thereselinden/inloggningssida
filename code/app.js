@@ -1,16 +1,15 @@
-// TODO: 1. If sign out and logged in button showed 2 times. After page refresh correct... something in signout function?
-// TODO: 2. Create user page (username, password)
-// TODO: 3. Push new user to localStorage array
 // TODO: 4. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
 // TODO: 5. Can I create function that does'nt consider if username written with large or small letter?
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
-const createForm = document.getElementById('createForm');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
-const errorMessage = document.getElementById('errorMessage');
+
+//eventlistener
 const signInBtn = document.getElementById('signInBtn');
+const createAccountLink = document.getElementById('createAccountLink');
+const createBtn = document.getElementById('createBtn');
 
 const users = [
   {
@@ -23,7 +22,10 @@ const users = [
   },
 ];
 
-const userJson = localStorage.setItem('users', JSON.stringify(users));
+if (!localStorage.getItem('users')) {
+  localStorage.setItem('users', JSON.stringify(users));
+  console.log('in if ');
+}
 
 // CHECK IF isLoggedIn value exist (true) in localStorage. If true call signInSucessful to show welcomePage content
 const init = () => {
@@ -109,7 +111,6 @@ function capitalizeName() {
 // CREATE SIGN OUT BUTTON
 function createSignOutButtonElement() {
   const welcomePageContainer = document.createElement('div');
-  console.log('welcomePageContainer', welcomePageContainer);
   welcomePageContainer.classList.add('welcome-page-container');
 
   const signOutBtn = document.createElement('button');
@@ -126,6 +127,8 @@ function createSignOutButtonElement() {
 
 // DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
 const showErrorMessage = () => {
+  const errorMessage = document.getElementById('errorMessage');
+
   if (username.value === '' || password.value === '') {
     errorMessage.innerHTML = 'Information får inte vara blank';
   } else {
@@ -156,21 +159,54 @@ function signOut() {
   localStorage.removeItem('currentSignedInUser');
 }
 
-// function to push new userobject to users array
-// const addUser = (username, password) => {
+// Called when user click create account link from startpage
+createAccountLink.addEventListener('click', () => {
+  const createPage = document.getElementById('createPage');
+  loginPage.style.display = 'none';
+  createPage.style.display = 'flex';
+});
+
+// createBtn.addEventListener('click', () => {
+//   console.log('clickade på createBtn');
+//   addNewUser(username, password);
+// });
+
+// function to push new userobject to users array'
+// function should be called when creatusername.value & createpassword.value
+// addUser('therese', 'hejhej');
+// const addNewUser = () => {
+//   // console.log(username, password);
 //   users.push({
-//     username,
-//     password,
+//     username: createUsername,
+//     password: createPassword,
 //   });
 //   localStorage.setItem('users', JSON.stringify(users));
-
 // };
 
-// function should be called when creatusername.value & createpassword.value
-//addUser('therese', 'hejhej');
+createBtn.addEventListener('click', () => {
+  console.log('create btn clicked');
+  createNewUser();
+});
 
-//Only save all users username in localStorage, not password
-// const json = localStorage.setItem(
-//   'users',
-//   JSON.stringify(users.map(user => user.username))
-// );
+function createNewUser() {
+  const users = JSON.parse(localStorage.getItem('users'));
+
+  const createUsername = document.getElementById('createUsername');
+  const createPassword = document.getElementById('createPassword');
+
+  users.push({
+    username: createUsername.value,
+    password: createPassword.value,
+  });
+
+  localStorage.setItem('users', JSON.stringify(users));
+
+  loginPage.style.display = 'flex';
+}
+
+//   console.log('skapa användare knappen');
+//   users.push({
+//     username: createUsername,
+//     password: createPassword,
+//   });
+// });

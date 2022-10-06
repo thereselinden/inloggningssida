@@ -10,3 +10,38 @@ Innehålls -vyn skall dynamiskt växla mellan tre olika lägen:
 - Välkomstsida för ej inloggade.
 - Felmeddelande vid felaktig inlogging.
 - Välkomstsida för inloggad besökare.
+
+
+
+// const createSignInForm = () => {
+//   const createForm = document.createElement('form');
+//   //createForm.setAttribute('method', 'post');
+
+//   // input type text for username
+//   const createUsernameInput = document.createElement('input');
+//   createUsernameInput.setAttribute('type', 'text');
+//   createUsernameInput.setAttribute('placeholder', 'Enter username');
+
+//   // input type password for password
+//   const createPasswordInput = document.createElement('input');
+//   createPasswordInput.setAttribute('type', 'password');
+//   createPasswordInput.setAttribute('placeholder', 'Enter password');
+
+//   // create a submit button
+//   const createSubmitBtn = document.createElement('input');
+//   createSubmitBtn.setAttribute('type', 'submit');
+//   createSubmitBtn.setAttribute('value', 'Submit');
+
+//   // Append the full name input to the form
+//   createForm.append(createUsernameInput, createPasswordInput, createSubmitBtn);
+//   // createForm.appendChild(createPasswordInput);
+//   // createForm.appendChild(createSubmitBtn);
+
+//   createAccountForm.appendChild(createForm);
+// };
+
+//Only save all users username in localStorage, not password
+// const json = localStorage.setItem(
+//   'users',
+//   JSON.stringify(users.map(user => user.username))
+// );

@@ -89,6 +89,15 @@ input {
   cursor: pointer;
 }
 
+/** CREATE ACCOUNT **/
+/* .create-account-form {
+  display: none;
+} */
+
+.create-page {
+  display: none;
+}
+
 /**** FOOTER ****/
 
 footer {

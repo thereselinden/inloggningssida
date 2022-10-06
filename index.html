@@ -51,10 +51,47 @@
           >
             Logga in
           </button>
+          <a id="createAccountLink">Skapa konto</a>
         </form>
       </section>
 
       <section class="welcome-page" id="welcomePage"></section>
+      <!-- <form class="create-account-form" id="createAccountForm"></form> -->
+
+      <section class="create-page form-page" id="createPage">
+        <form onsubmit="createNewUser()" method="POST">
+          <h1>Skapa konto</h1>
+          <label for="createUsername"
+            >Användarnamn
+            <input
+              type="text"
+              id="createUsername"
+              name="createUsername"
+              required
+              autocomplete="off"
+            />
+          </label>
+          <label for="createPassword"
+            >Lösenord
+            <input
+              type="password"
+              id="createPassword"
+              name="createPassword"
+              minlength="2"
+              required
+            />
+          </label>
+          <div class="error-msg" id="errorMessage"></div>
+          <button
+            type="submit"
+            id="createBtn"
+            class="create-btn"
+            value="submit"
+          >
+            Skapa konto
+          </button>
+        </form>
+      </section>
     </main>
 
     <footer>
