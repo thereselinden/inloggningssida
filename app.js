@@ -1,8 +1,4 @@
-// TODO: 1. If sign out and logged in button showed 2 times. After page refresh correct... something in signout function?
-// TODO: 2. Create user page (username, password)
-// TODO: 3. Push new user to localStorage array
-// TODO: 4. Create flow sign in page -> create page button -> sign in -> weclome page -> sign out
-// TODO: 5. Can I create function that does'nt consider if username written with large or small letter?
+// TODO: ShowErrorMessage() when creating account does not show
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
@@ -91,9 +87,9 @@ const signInFail = () => {
 function toggleHeaderImage() {
   const headerImage = image.getAttribute('src');
 
-  headerImage === '../assets/lock.png'
-    ? image.setAttribute('src', '../assets/unlock.png')
-    : image.setAttribute('src', '../assets/lock.png');
+  headerImage === 'assets/lock.png'
+    ? image.setAttribute('src', 'assets/unlock.png')
+    : image.setAttribute('src', 'assets/lock.png');
 }
 
 // CHANGE PAGE CONTENT DEPENDING ON SIGNED IN OR NOT
