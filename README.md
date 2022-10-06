@@ -1,6 +1,4 @@
-# Inloggningsformulär
-
-## Inlämningsuppgift 2 - Medieinstitutet
+# Inloggningsformulär: Inlämningsuppgift 2 - Medieinstitutet
 
 ## Beskrivning av uppgift
 
@@ -16,13 +14,13 @@
 
 ## Se sidan live
 
-"www.githubpages.com"
+https://projectsignin.netlify.app/"
 
 # Testflöde
 
 ## Användaren finns i localStorage
 
-1. Öppna github pages via länken ovan
+1. Öppna netlify länk ovan
 2. Ange användarnamn och lösenord på någon av ovanstående testpersoner.
 
 ### Förväntat utfall
@@ -31,16 +29,21 @@
 - Logga ut knapp visas i mitten av sidan
 - Icon i header byts ut
 
-## Användarnamn eller lösenord är felaktigt
+## Användarnamn eller lösenord är felaktigt - Förväntat utfall
 
-1. Ange felaktigt användarnamn och/eller lösenord
+- Felmeddelande om felaktiga uppgifter. Försvinner efter 3s.
 
-### Förväntat utfall
-
-- Felmeddelande om att användaren inte finns
-
-## Klicka på logga in knappen och input fält är tomma
-
-### Förväntat utfall
+## Klicka på logga in knappen och input fält är tomma - Förväntat utfall
 
 - Felmeddelande om att värden inte kan vara tomma
+
+## Skapa ny användare
+
+1. Klicka på länken "skapa användare"
+2. Ange användarnamn & lösenord
+
+### Förväntat utfall
+
+- Om användarnamnet inte redan är sparat i LocalStorage visas logga in formulär.
+- Du kan nu logga in med den nya användaren.
+- Om användarnamnet finns i LocalStorage - felmeddelande.
