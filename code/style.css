@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap');
+
 * {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /**** HEADER ****/
@@ -19,8 +22,8 @@ img {
   margin: 0;
 }
 
-h1 {
-  margin: 0 0 1rem;
+h2 {
+  margin: 0;
 }
 
 /**** MAIN ****/
@@ -29,6 +32,10 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  margin-bottom: 1rem;
 }
 
 .form-page {
@@ -79,8 +86,9 @@ input {
 }
 
 .sign-out-btn,
-.sign-in-btn {
-  background-color: #3d69e1;
+.sign-in-btn,
+.create-btn {
+  background-color: #d58339;
   color: #fff;
   border: none;
   border-radius: 2rem;

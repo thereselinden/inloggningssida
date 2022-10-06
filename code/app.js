@@ -13,6 +13,7 @@ const password = document.getElementById('password');
 const signInBtn = document.getElementById('signInBtn');
 const createAccountLink = document.getElementById('createAccountLink');
 const createBtn = document.getElementById('createBtn');
+const signInLink = document.getElementById('signInLink');
 
 const users = [
   {
@@ -189,3 +190,10 @@ function createNewUser() {
 
   loginPage.style.display = 'flex';
 }
+
+// Called when user click create account link from startpage
+signInLink.addEventListener('click', () => {
+  const createPage = document.getElementById('createPage');
+  loginPage.style.display = 'flex';
+  createPage.style.display = 'none';
+});
