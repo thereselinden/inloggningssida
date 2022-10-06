@@ -15,8 +15,7 @@ const createAccountLink = document.getElementById('createAccountLink');
 const createBtn = document.getElementById('createBtn');
 const signInLink = document.getElementById('signInLink');
 
-const link = document.getElementById('link');
-
+// DEFAULT USERS STORED IN LOCALSTORAGE
 const users = [
   {
     username: 'fredrik',
@@ -26,12 +25,9 @@ const users = [
     username: 'therese',
     password: 'hejsan',
   },
-  {
-    username: 'katten',
-    password: 'mjau',
-  },
 ];
 
+// IF NO USERS KEY, CREATE ONE
 if (!localStorage.getItem('users')) {
   localStorage.setItem('users', JSON.stringify(users));
 }
@@ -109,6 +105,7 @@ function showWelcomePage() {
   capitalizeName();
 }
 
+// MAKE FIRST LETTER IN USERNAME TOUPPERCASE
 function capitalizeName() {
   const loggedInUser = JSON.parse(localStorage.getItem('currentSignedInUser'));
 
@@ -123,7 +120,6 @@ function capitalizeName() {
 // CREATE SIGN OUT BUTTON
 function createSignOutButtonElement() {
   const welcomePageContainer = document.createElement('div');
-  console.log('welcomePageContainer', welcomePageContainer);
   welcomePageContainer.classList.add('welcome-page-container');
 
   const signOutBtn = document.createElement('button');
@@ -195,18 +191,19 @@ function createNewUser() {
   if (duplicateUsers) {
     //meddelandet visas inte!
     showErrorMessage('Användarnamnet är tyvärr upptaget!');
-    console.log('create inside if');
     clearInputField();
+    if (createUsername.value === '' || createPassword.value === '') {
+      showErrorMessage('Uppgifter får inte vara tomma');
+    }
   } else {
     users.push({
       username: createUsername.value,
       password: createPassword.value,
     });
-    clearInputField();
-    alert('Klicka på logga in för att komma åt din nyskapade profil!');
+    const createPage = document.getElementById('createPage');
+    loginPage.style.display = 'flex';
+    createPage.style.display = 'none';
   }
-  //console.log('duplicateValues', typeof duplicateUsers);
-
   localStorage.setItem('users', JSON.stringify(users));
 }
 
