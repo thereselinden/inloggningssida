@@ -65,10 +65,12 @@ input {
 
 .error-msg {
   color: rgb(195, 54, 54);
+  margin-top: 1rem;
 }
 
 .welcome-page {
   display: none;
+  width: 100%;
 }
 
 .welcome-page-container {
@@ -87,6 +89,10 @@ input {
   margin: 2rem 0;
   height: 2.5rem;
   cursor: pointer;
+}
+
+.create-page {
+  display: none;
 }
 
 /**** FOOTER ****/

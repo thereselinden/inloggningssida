@@ -6,11 +6,13 @@
 
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
-const createForm = document.getElementById('createForm');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
-const errorMessage = document.getElementById('errorMessage');
+
+//eventlistener
 const signInBtn = document.getElementById('signInBtn');
+const createAccountLink = document.getElementById('createAccountLink');
+const createBtn = document.getElementById('createBtn');
 
 const users = [
   {
@@ -23,8 +25,10 @@ const users = [
   },
 ];
 
-const userJson = localStorage.setItem('users', JSON.stringify(users));
-
+if (!localStorage.getItem('users')) {
+  localStorage.setItem('users', JSON.stringify(users));
+  console.log('in if ');
+}
 // CHECK IF isLoggedIn value exist (true) in localStorage. If true call signInSucessful to show welcomePage content
 const init = () => {
   const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
@@ -126,10 +130,12 @@ function createSignOutButtonElement() {
 
 // DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
 const showErrorMessage = () => {
+  const errorMessage = document.getElementById('errorMessage');
+
   if (username.value === '' || password.value === '') {
     errorMessage.innerHTML = 'Information får inte vara blank';
   } else {
-    errorMessage.innerHTML = 'Användaren finns inte';
+    errorMessage.innerHTML = 'Har du angett korrekta uppgifter?';
   }
   setTimeout(() => {
     errorMessage.innerHTML = '';
@@ -156,21 +162,30 @@ function signOut() {
   localStorage.removeItem('currentSignedInUser');
 }
 
-// function to push new userobject to users array
-// const addUser = (username, password) => {
-//   users.push({
-//     username,
-//     password,
-//   });
-//   localStorage.setItem('users', JSON.stringify(users));
+// Called when user click create account link from startpage
+createAccountLink.addEventListener('click', () => {
+  const createPage = document.getElementById('createPage');
+  loginPage.style.display = 'none';
+  createPage.style.display = 'flex';
+});
 
-// };
+createBtn.addEventListener('click', () => {
+  console.log('create btn clicked');
+  createNewUser();
+});
 
-// function should be called when creatusername.value & createpassword.value
-//addUser('therese', 'hejhej');
+function createNewUser() {
+  const users = JSON.parse(localStorage.getItem('users'));
 
-//Only save all users username in localStorage, not password
-// const json = localStorage.setItem(
-//   'users',
-//   JSON.stringify(users.map(user => user.username))
-// );
+  const createUsername = document.getElementById('createUsername');
+  const createPassword = document.getElementById('createPassword');
+
+  users.push({
+    username: createUsername.value,
+    password: createPassword.value,
+  });
+
+  localStorage.setItem('users', JSON.stringify(users));
+
+  loginPage.style.display = 'flex';
+}
