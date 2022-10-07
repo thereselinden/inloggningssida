@@ -40,6 +40,20 @@ const init = () => {
 };
 init();
 
+// DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
+function showErrorMessage(message) {
+  const errorMessageLogIn = document.getElementById('errorMessageLogIn');
+  const errorMessageCreate = document.getElementById('errorMessageCreate');
+
+  errorMessageLogIn.innerHTML = message;
+  errorMessageCreate.innerHTML = message;
+
+  setTimeout(() => {
+    errorMessageLogIn.innerHTML = '';
+    errorMessageCreate.innerHTML = '';
+  }, 3000);
+}
+
 // STOP FORM TO UPDATE ON SUBMIT, CALL EXISTUSER FUNCTION ON CLICK
 signInBtn.addEventListener('click', event => {
   event.preventDefault();
@@ -130,15 +144,7 @@ function createSignOutButtonElement() {
   welcomePage.appendChild(welcomePageContainer);
 }
 
-// DIFFERENT ERROR MESSAGE, DISPLAY NONE AFTER 3 SEC
-function showErrorMessage(message) {
-  const errorMessage = document.getElementById('errorMessage');
-  errorMessage.textContent = message;
-
-  setTimeout(() => {
-    errorMessage.textContent = '';
-  }, 3000);
-}
+//ERROR FUNCTION HERE BEFORE
 
 // CLEAR INPUT FIELD IF NOT CORRECT
 const clearInputField = () => {
@@ -162,6 +168,7 @@ function signOut() {
   localStorage.removeItem('currentSignedInUser');
 }
 
+// CREATE NEW USER FUNCTIONS
 // Called when user click create account link from startpage
 createAccountLink.addEventListener('click', () => {
   const createPage = document.getElementById('createPage');
@@ -169,11 +176,13 @@ createAccountLink.addEventListener('click', () => {
   createPage.style.display = 'flex';
 });
 
+// TRIGGER CREATE NEW USER FUNCTION ON CLICK, PREVENT DEFAULT.
 createBtn.addEventListener('click', event => {
   event.preventDefault();
   createNewUser();
 });
 
+// PUSHES NEW USERS TO USERS ARRAY. CHECK IF USERNAME IS UNIQE
 function createNewUser() {
   const users = JSON.parse(localStorage.getItem('users'));
 
@@ -185,12 +194,10 @@ function createNewUser() {
   );
 
   if (duplicateUsers) {
-    //meddelandet visas inte!
     showErrorMessage('Användarnamnet är tyvärr upptaget!');
     clearInputField();
-    if (createUsername.value === '' || createPassword.value === '') {
-      showErrorMessage('Uppgifter får inte vara tomma');
-    }
+  } else if (createUsername.value === '' || createPassword.value === '') {
+    showErrorMessage('Informationen får inte vara tom');
   } else {
     users.push({
       username: createUsername.value,
@@ -203,9 +210,11 @@ function createNewUser() {
   localStorage.setItem('users', JSON.stringify(users));
 }
 
+// TOGGLE WHAT PAGE IS SHOWN
 // Called when user click create account link from startpage
 signInLink.addEventListener('click', () => {
   const createPage = document.getElementById('createPage');
+
   loginPage.style.display = 'flex';
   createPage.style.display = 'none';
 });
