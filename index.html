@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Inlämningsuppgift - Inloggningssida</title>
+    <link rel="icon" type="image/src" href="assets/favicon.png" />
+    <title>Assignment - Sign in page</title>
   </head>
   <body>
     <header>
@@ -22,9 +23,9 @@
       <!-- LOGINPAGE -->
       <section class="login-page form-page" id="loginPage">
         <form onsubmit="signIn()" method="POST">
-          <h1>Logga in</h1>
+          <h1>Sign in</h1>
           <label for="username"
-            >Användarnamn
+            >Username
             <input
               type="text"
               id="username"
@@ -34,7 +35,7 @@
             />
           </label>
           <label for="password"
-            >Lösenord
+            >Password
             <input
               type="password"
               id="password"
@@ -50,9 +51,9 @@
             class="sign-in-btn"
             value="submit"
           >
-            Logga in
+            Sign in
           </button>
-          <a id="createAccountLink" class="link">Skapa konto</a>
+          <a id="createAccountLink" class="link">Create account</a>
         </form>
       </section>
       <!-- WELCOMEPAGE -->
@@ -60,9 +61,9 @@
       <!-- CREATEPAGE -->
       <section class="create-page form-page" id="createPage">
         <form onsubmit="createNewUser()" method="POST">
-          <h1>Skapa konto</h1>
+          <h1>Create account</h1>
           <label for="createUsername"
-            >Användarnamn
+            >Username
             <input
               type="text"
               id="createUsername"
@@ -72,7 +73,7 @@
             />
           </label>
           <label for="createPassword"
-            >Lösenord
+            >Password
             <input
               type="password"
               id="createPassword"
@@ -88,9 +89,9 @@
             class="create-btn"
             value="submit"
           >
-            Skapa konto
+            Create account
           </button>
-          <a id="signInLink" class="link">Logga in</a>
+          <a id="signInLink" class="link">Sign in</a>
         </form>
       </section>
     </main>
@@ -98,7 +99,7 @@
     <footer>
       <section class="footer-container">
         <p>Therese Lindén &#169; 2022</p>
-        <p>Inlämningsuppgift - Medieinstitutet</p>
+        <p>Assignment - Medieinstitutet</p>
       </section>
     </footer>
     <script src="app.js"></script>

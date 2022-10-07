@@ -1,5 +1,3 @@
-// TODO: ShowErrorMessage() when creating account does not show
-
 const loginPage = document.querySelector('.login-page');
 const welcomePage = document.querySelector('.welcome-page');
 const username = document.getElementById('username');
@@ -90,9 +88,9 @@ function signInSucessful() {
 
 const signInFail = () => {
   if (username.value === '' || password.value === '') {
-    showErrorMessage('Information får inte vara blank');
+    showErrorMessage('Information can not be blank');
   } else {
-    showErrorMessage('Har du angett korrekta uppgifter?');
+    showErrorMessage('Have you enter correct information?');
   }
   clearInputField();
 };
@@ -124,7 +122,7 @@ function capitalizeName() {
 
   document.getElementById(
     'userFirstName'
-  ).innerHTML = `Hej, ${capitalizeUsername}`;
+  ).innerHTML = `Hello, ${capitalizeUsername}`;
 }
 
 // CREATE SIGN OUT BUTTON
@@ -133,7 +131,7 @@ function createSignOutButtonElement() {
   welcomePageContainer.classList.add('welcome-page-container');
 
   const signOutBtn = document.createElement('button');
-  signOutBtn.innerText = 'Logga ut';
+  signOutBtn.innerText = 'Sign out';
   signOutBtn.onclick = () => {
     welcomePageContainer.remove();
     signOut();
@@ -194,10 +192,10 @@ function createNewUser() {
   );
 
   if (duplicateUsers) {
-    showErrorMessage('Användarnamnet är tyvärr upptaget!');
+    showErrorMessage('Username already taken!');
     clearInputField();
   } else if (createUsername.value === '' || createPassword.value === '') {
-    showErrorMessage('Informationen får inte vara tom');
+    showErrorMessage('Information can not be blank');
   } else {
     users.push({
       username: createUsername.value,
